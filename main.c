@@ -16,6 +16,7 @@
 #define STOI_2(buf) ((buf[0]-'0')*10 + buf[1]-'0')
 #define STOI_3(buf) ((buf[0]-'0')*100 + (buf[1]-'0')*10 + buf[2]-'0')
 #define assert(cond) osAssert(cond, __LINE__)
+
 void osAssert(bool cond, int LINE);
 void* threadLoop(void* arg);
 void signalStop(int signum);
@@ -35,9 +36,10 @@ int main(int argc, char** argv){
     assert(CPUNAME != NULL);
     printf("CPU model: %s", CPUNAME);
     printf("Number of CPUs: %d\n\n", NUMCORES);
+
+    printf("Starting stress test...\n");
     run = true;
     assert(signal(SIGINT, signalStop) != SIG_ERR);
-    printf("Starting stress test...\n");
     int NUMTHREADS = NUMCORES;
     pthread_t* tids = malloc(sizeof(pthread_t)*NUMTHREADS);
     t_arg* args = malloc(sizeof(t_arg)*NUMTHREADS);
@@ -54,12 +56,14 @@ int main(int argc, char** argv){
     time_t start = time(NULL);
     printf("\n");
     int max = 0;
+    int min = __INT_MAX__;
     while(run){
         assert((len = read(tempFd, buf, READ_BUF)) != -1);
         assert(lseek(tempFd, 0, SEEK_SET) != -1);
         int tmp = len == 6 ? STOI_2(buf) : STOI_3(buf);
         max = tmp > max ? tmp : max;
-        printf("CPU Temperature: %d°C [MAX : %d°C]\n", tmp, max);
+        min = min > tmp ? tmp : min;
+        printf("CPU Temperature: %d°C [MIN : %d°C | MAX : %d°C]\n", tmp, min, max);
         printf("Time elapsed: %d seconds\n", (int)(time(NULL)-start));
         printf("Press CTRL+C to exit...");
         fflush(stdout);
