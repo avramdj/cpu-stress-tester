@@ -21,6 +21,7 @@ void osAssert(bool cond, int LINE);
 void* threadLoop(void* arg);
 void signalStop(int signum);
 char* get_cpuname();
+int get_cpucores();
 void assemblyStress(bool* run);
 
 typedef struct{
@@ -33,9 +34,10 @@ int main(int argc, char** argv){
 
     int NUMCORES = get_nprocs();
     char* CPUNAME = get_cpuname();
+    int CPUCORES = get_cpucores();
     assert(CPUNAME != NULL);
     printf("CPU model: %s", CPUNAME);
-    printf("Number of CPUs: %d\n\n", NUMCORES);
+    printf("Number of CPU cores/threads: %d/%d\n\n", CPUCORES, NUMCORES);
 
     printf("Starting stress test...\n");
     run = true;
@@ -91,6 +93,21 @@ char* get_cpuname(){
         }
     }
     return buffer;
+}
+int get_cpucores(){
+    FILE* cmd = fopen("/proc/cpuinfo", "r");
+    assert(cmd != NULL);
+    char* buffer = malloc(sizeof(char)*BUFSIZ);
+    while(fgets(buffer, BUFSIZ, cmd) != NULL){
+        if(!strncmp(buffer, "cpu cores", 9)){
+            buffer = strchr(buffer, ':');
+            assert(buffer != NULL);
+            buffer += 2;
+            break;
+        }
+    }
+    int numcores = atoi(buffer);
+    return numcores;
 }
 void signalStop(int signum){
     run = false;
