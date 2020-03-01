@@ -1,11 +1,10 @@
+#include <sys/sysinfo.h>
+#include <pthread.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <pthread.h>
 #include <signal.h>
-
-#include <sys/sysinfo.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,11 +53,13 @@ int main(int argc, char** argv){
     int len;
     time_t start = time(NULL);
     printf("\n");
+    int max = 0;
     while(run){
         assert((len = read(tempFd, buf, READ_BUF)) != -1);
         assert(lseek(tempFd, 0, SEEK_SET) != -1);
         int tmp = len == 6 ? STOI_2(buf) : STOI_3(buf);
-        printf("CPU Temperature: %d°C\n", tmp);
+        max = tmp > max ? tmp : max;
+        printf("CPU Temperature: %d°C [MAX : %d°C]\n", tmp, max);
         printf("Time elapsed: %d seconds\n", (int)(time(NULL)-start));
         printf("Press CTRL+C to exit...");
         fflush(stdout);
