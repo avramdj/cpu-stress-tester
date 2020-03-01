@@ -22,7 +22,5 @@ stressLoop:
     vfmadd213ps ymm14, ymm1, ymm2
     vfmadd213ps ymm15, ymm1, ymm2
     cmp [rdi], dword ptr 0
-    je end
-    jmp stressLoop
-end:
+    jne stressLoop
     ret
