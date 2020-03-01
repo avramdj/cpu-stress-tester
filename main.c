@@ -21,6 +21,7 @@ void osAssert(bool cond, int LINE);
 void* threadLoop(void* arg);
 void signalStop(int signum);
 char* get_cpuname();
+void assemblyStress(bool* run);
 
 typedef struct{
     int tid;
@@ -92,9 +93,7 @@ void signalStop(int signum){
 void* threadLoop(void* arg){
     int tid = ((t_arg*)arg)->tid;
     float n = 1.5;
-    while(run){
-        n *= n;
-    }
+    assemblyStress(&run);
     return (void*)0;
 }
 void osAssert(bool cond, int LINE){
