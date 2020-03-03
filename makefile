@@ -1,2 +1,2 @@
-compile: main.c stress.s
-	gcc main.c stress.s -pthread
+compile: main.c stress.s stresslib.cpp
+	g++ main.cpp stresslib.cpp stress.s -pthread -o stress
