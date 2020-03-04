@@ -1,5 +1,8 @@
 #include "stresslib.h"
 
+#include <iostream>
+#include <fstream>
+
 int getTemp(){
     int temp;
     ifstream sysTemp;
