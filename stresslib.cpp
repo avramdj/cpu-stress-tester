@@ -6,7 +6,7 @@
 int getTemp(){
     int temp;
     ifstream sysTemp;
-    sysTemp.open("/sys/classs/thermal/thermal_zone0/temp");
+    sysTemp.open("/sys/class/thermal/thermal_zone0/temp");
     if(sysTemp.fail()){
         return -1;
     }
