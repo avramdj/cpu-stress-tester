@@ -16,7 +16,11 @@ int main(){
     bool run = true;
     string CPUNAME = getCpuName();
     int NUMCORES = sysconf(_SC_NPROCESSORS_ONLN);
-    cout << "Model name:      " << CPUNAME << endl;
+    if(CPUNAME != ""){
+        cout << "Model name:      " << CPUNAME << endl;
+    } else {
+        cerr << "Couldn't get CPU model name" << endl;
+    }
     cout << "Number of CPUs:  " << NUMCORES << endl;
     cout << endl;
 
