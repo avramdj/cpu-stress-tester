@@ -25,7 +25,8 @@ int main(){
     cout << endl;
 
     bool monitor = true;
-    if(getTemp() == -1){
+    string tempFilePath = getTempFile();
+    if(tempFilePath == ""){
         string answ;
         cerr << "ERROR : Failed to open temperature file, possibly missing sensor drivers!" << endl;
         cerr << "try : sudo apt install lm-sensors && sudo sensors-detect" << endl;
@@ -49,8 +50,8 @@ int main(){
     int maxT = 0;
     auto start = time(NULL);
     while(run){
-        if(monitor){    
-            int temp = getTemp();
+        if(monitor){
+            int temp = getTemp(tempFilePath);
             minT = min(minT, temp);
             maxT = max(maxT, temp); 
             cout << "CPU Temperature: "<< temp << "°C [MIN : " << minT << "°C | MAX : " << maxT << " °C]" << endl;

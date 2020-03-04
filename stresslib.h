@@ -7,6 +7,7 @@ using namespace std;
 
 extern "C" void assemblyStress(bool* run);
 string getCpuName();
-int getTemp();
+string getTempFile();
+int getTemp(string tempFilePath);
 
 #endif
