@@ -6,9 +6,8 @@
 int getTemp(){
     int temp;
     ifstream sysTemp;
-    sysTemp.open("/sys/class/thermal/thermal_zone0/temp");
+    sysTemp.open("/sys/classs/thermal/thermal_zone0/temp");
     if(sysTemp.fail()){
-        cerr << "Failed to open temperature file. Exiting..." << endl;
         return -1;
     }
     sysTemp >> temp;

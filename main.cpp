@@ -22,11 +22,13 @@ int main(){
 
     bool monitor = true;
     if(getTemp() == -1){
-        char answ;
-        cout << "Failed to open temperature file." << endl;
-        cout << "Run stress test without temperature monitor? [Y/n] :";
-        cin >> answ;
-        if(answ == 'n' || answ == 'N'){
+        string answ;
+        cerr << "ERROR : Failed to open temperature file, possibly missing sensor drivers!" << endl;
+        cerr << "try : sudo apt install lm-sensors && sudo sensors-detect" << endl;
+        cerr << endl;
+        cout << "Continue stress test without monitoring temperature? [Y/n] : ";
+        getline(cin, answ);
+        if(answ.find('n') != string::npos || answ.find('N') != string::npos){
             exit(EXIT_SUCCESS);
         } else {
             monitor = false;
