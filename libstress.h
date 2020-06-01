@@ -1,5 +1,5 @@
-#ifndef STRESSLIB_H
-#define STRESSLIB_H
+#ifndef LIB_STRESS_H
+#define LIB_STRESS_H
 
 #include <iostream>
 

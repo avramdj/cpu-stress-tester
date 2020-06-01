@@ -1,4 +1,4 @@
-#include "stresslib.h"
+#include "libstress.h"
 
 #include <iostream>
 #include <fstream>
