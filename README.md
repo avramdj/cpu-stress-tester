@@ -4,7 +4,7 @@ a little linux CLI tool for cpu stress testing and temperature monitoring
 `make`  
 `./stress`
 
-<img src="img/screenshot.png">
+<img src="img/screenshot.png" width="500px">
 
 todo:
 add Fast Fourier Transform test (and compare to vector fmadd instruction loop heat output)
