@@ -3,11 +3,9 @@
 
 #include <iostream>
 
-using namespace std;
-
-extern "C" void assemblyStress(bool* run);
-string getCpuName();
-string getTempFile();
-int getTemp(string tempFilePath);
+extern "C" void stress(bool* run);
+std::string get_cpu_name();
+std::string get_temp_path();
+int get_temp(std::string tempFilePath);
 
 #endif

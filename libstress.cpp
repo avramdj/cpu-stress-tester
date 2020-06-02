@@ -3,8 +3,8 @@
 #include <iostream>
 #include <fstream>
 
-string getTempFile(){
-    string paths[] = {
+std::string get_temp_path(){
+    std::string paths[] = {
                     "/sys/class/hwmon/hwmon0/temp1_input",
                     "/sys/class/hwmon/hwmon1/temp1_input",
                     "/sys/class/hwmon/hwmon2/temp1_input",
@@ -16,7 +16,7 @@ string getTempFile(){
                     "/sys/class/hwmon/hwmon8/temp1_input",
                     "/sys/class/thermal/thermal_zone0/temp"};
     for(auto path : paths){
-        ifstream file;
+        std::ifstream file;
         file.open(path);
         if(!file.fail()){
             return path;
@@ -25,9 +25,9 @@ string getTempFile(){
     return "";
 }
 
-int getTemp(string tempFilePath){
+int get_temp(std::string tempFilePath){
     int temp;
-    ifstream sysTemp;
+    std::ifstream sysTemp;
     sysTemp.open(tempFilePath);
     if(sysTemp.fail()){
         return -1;
@@ -36,21 +36,21 @@ int getTemp(string tempFilePath){
     temp /= 1000;
     return temp;
 }
-string getCpuName(){
-    ifstream sysCpu;
+std::string get_cpu_name(){
+    std::ifstream sysCpu;
     sysCpu.open("/proc/cpuinfo");
     if(sysCpu.fail()){
         return "";
     }
-    string line;
+    std::string line;
     int p;
-    string key = "model name	: ";
-    while(getline(sysCpu, line)){
-        if(line.find(key) != string::npos){
+    std::string key = "model name	: ";
+    while(std::getline(sysCpu, line)){
+        if(line.find(key) != std::string::npos){
             break;
         }
     }
-    string cpuName = line.substr(key.length());
+    std::string cpuName = line.substr(key.length());
 
     return cpuName;
 }

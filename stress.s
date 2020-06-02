@@ -1,7 +1,7 @@
 .intel_syntax noprefix
 .text
-.global assemblyStress
-assemblyStress:
+.global stress
+stress:
     vzeroupper
     cvtsi2ss xmm0, rcx
     vbroadcastss ymm1, xmm0
