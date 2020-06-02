@@ -52,7 +52,7 @@ int main(){
             int temp = get_temp(tempFilePath);
             min_temp = std::min(min_temp, temp);
             max_temp = std::max(max_temp, temp); 
-            std::cout << "CPU Temperature: "<< temp << "°C [MIN : " << min_temp << "°C | MAX : " << max_temp << " °C]" << std::endl;
+            std::cout << "CPU Temperature: "<< temp << "°C [MIN : " << min_temp << "°C | MAX : " << max_temp << "°C]" << std::endl;
         }
         std::cout << "Time elapsed: " << time(NULL) - start << " seconds. " << "CTRL + C to exit..." << std::endl;
         sleep(1);
